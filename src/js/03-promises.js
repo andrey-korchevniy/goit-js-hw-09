@@ -6,7 +6,7 @@ const refs = {
   amountInput: document.querySelector('input[name="amount"]'),
 }
 const submitBtn = document.querySelector('button');
-let formData = {};
+let formData;
 
 submitBtn.addEventListener('click', onSubmit);
 
@@ -21,25 +21,25 @@ function onSubmit(event) {
 
 }
 
-function createPromise(position, delay) {
+function createPromise(position, step) {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
-        resolve({position, delay});
+        resolve({position, step});
       } else {
-        reject({position, delay});
+        reject({position, step});
       }
-    }, delay);
+    }, step);
   },
   );
   
   promise
-  .then(({ position, delay }) => {
-    Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  .then(({ position, step }) => {
+    Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${step + formData.delay}ms`);
   })
-  .catch(({ position, delay }) => {
-    Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+  .catch(({ position, step }) => {
+    Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${step + formData.delay}ms`);
   });
   }
 

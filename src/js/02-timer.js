@@ -42,10 +42,17 @@ function checkDate (date) {
 
 function schowTime() {
     let toDate = pickedDate.getTime() - Date.now();
+
     if (toDate <= 0) {
-        toDate = 0;
         clearInterval(timeId);
+        return;
     }
+
+    if (toDate / (1000 * 60 * 60 * 24) > 99) {
+        Notiflix.Notify.warning('Please choose a date within 99 days in the future');
+        return;
+    }
+
     refs.days.textContent = toDigits(Math.floor(toDate / (1000 * 24 * 60 * 60)));
     refs.hours.textContent = toDigits(Math.floor((toDate / (1000 * 60 * 60)) % 24));
     refs.minutes.textContent = toDigits(Math.floor((toDate / (1000 * 60)) % 60));
