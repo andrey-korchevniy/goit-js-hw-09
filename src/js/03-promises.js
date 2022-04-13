@@ -15,7 +15,8 @@ function onSubmit(event) {
   createDataFromInput();
   setTimeout(() => {
     for (let i = 1; i <= formData.amount; i++) {
-      createPromise(i, (i===1? 0:formData.step) * (i-1));
+      // создаем промис, передаем позицию, а также шаг, который равен 0 для первого шага или введенное в поле значение для следующих шагов   
+      createPromise(i, formData.step * (i-1));
     }
   }, formData.delay);
 
